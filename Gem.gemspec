@@ -10,6 +10,8 @@ Gem::Specification.new do |spec|
   spec.license = "Apache 2.0"
   spec.add_dependency "rspec"
   spec.require_paths = ["lib"]
+  spec.add_dependency "coderay"
+  spec.add_dependency "colorize"
   spec.add_development_dependency "rake"
   spec.files = Dir["lib/**/*.rb"] + %W(License Readme.md Gemfile)
   spec.summary = "A couple of RSpec formatters the way I like them."
