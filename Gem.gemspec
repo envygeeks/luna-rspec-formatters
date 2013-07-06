@@ -8,11 +8,16 @@ Gem::Specification.new do |spec|
   spec.name = "luna-rspec-formatters"
   spec.authors = ["Jordon Bedwell"]
   spec.license = "Apache 2.0"
-  spec.add_dependency "rspec"
   spec.require_paths = ["lib"]
-  spec.add_dependency "coderay"
-  spec.add_dependency "colorize"
-  spec.add_development_dependency "rake"
   spec.files = Dir["lib/**/*.rb"] + %W(License Readme.md Gemfile)
   spec.summary = "A couple of RSpec formatters the way I like them."
+
+  # --------------------------------------------------------------------------
+  # Dependencies.
+  # --------------------------------------------------------------------------
+
+  spec.add_dependency 'libnotify', '~> 0.8.1'
+  spec.add_dependency 'coderay', '~> 1.0.9'
+  spec.add_dependency 'rspec', '~> 2.13.0'
+  spec.add_dependency 'term-ansicolor', '~> 1.2.2'
 end
