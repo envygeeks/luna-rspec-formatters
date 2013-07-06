@@ -1,12 +1,4 @@
-/**/*.gem
-/**/*.rbc
 /.bundle
-/.config
-/.yardoc
+/*.gem
+/vendor
 /Gemfile.lock
-/coverage
-/doc/
-/pkg
-/rdoc
-/test/tmp
-/tmp
