@@ -49,7 +49,8 @@ module Luna
         # --------------------------------------------------------------------
 
         def dump_summary(duration, total, failures, pending)
-          super; Libnotify.new do |notify|
+        super
+          Libnotify.new do |notify|
             notify.summary = "RSpec Results"
             notify.urgency = :critical
             notify.timeout = 1
