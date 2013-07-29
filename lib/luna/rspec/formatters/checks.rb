@@ -21,5 +21,5 @@ module Luna
 end
 
 RSpec.configure do |config|
-  config.formatter = 'Luna::RSpec::Formatters::Checks'
+  config.formatter = "Luna::RSpec::Formatters::Checks"
 end

@@ -59,5 +59,5 @@ module Luna
 end
 
 RSpec.configure do |config|
-  config.formatter = 'Luna::RSpec::Formatters::Documentation'
+  config.formatter = "Luna::RSpec::Formatters::Documentation"
 end
