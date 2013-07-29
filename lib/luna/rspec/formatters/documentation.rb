@@ -1,4 +1,5 @@
 require_relative "shared/base"
+require "coderay"
 
 module Luna
   module RSpec
