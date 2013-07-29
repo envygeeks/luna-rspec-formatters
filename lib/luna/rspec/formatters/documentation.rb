@@ -3,7 +3,7 @@ require_relative "shared/base"
 module Luna
   module RSpec
     module Formatters
-      class Doc < Base
+      class Documentation < Base
 
         # --------------------------------------------------------------------
         # example_passed, example_pending, example_failed.
