@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.license = "Apache 2.0"
   spec.require_paths = ["lib"]
 
-  spec.add_dependency("rspec", "~> 2.14")
-  spec.add_dependency("libnotify", "~> 0.8")
   spec.add_dependency("term-ansicolor", "~> 1.2")
+  spec.add_dependency("rspec", ">= 2.14", "<= 3.1")
+  spec.add_dependency("libnotify", "~> 0.8")
 end
