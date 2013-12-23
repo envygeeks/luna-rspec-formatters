@@ -4,16 +4,22 @@ module Luna
   module RSpec
     module Formatters
       class Checks < Base
+        def example_passed(e)
+          super(e)
+          output.print("\s")
+          output.print(success_color("\u2713"))
+        end
 
-        # --------------------------------------------------------------------
-        # Checkmark, x and ?! with the colors green, red and yellow.
-        # --------------------------------------------------------------------
+        def example_failed(e)
+          super(e)
+          output.print("\s")
+          output.print(failed_color("\u2718"))
+        end
 
-        MethodMap.each do |m, u|
-          define_method("example_#{m}") do |e|
-            super(e)
-            output.print " #{u.first}".send(u.last)
-          end
+        def example_pending(e)
+          super(e)
+          output.print("\s")
+          output.print(pending_color("\u203D"))
         end
       end
     end

@@ -6,48 +6,40 @@ module Luna
     module Formatters
       class Documentation < Base
 
-        # --------------------------------------------------------------------
-        # example_passed, example_pending, example_failed.
-        # --------------------------------------------------------------------
-
-        MethodMap.each do |m, u|
-          define_method("example_#{m}") do |e|
-            super(e)
-            blank_line?
-            print_description(e)
-            output.puts " #{u.first}".send(u.last)
-          end
+        def example_passed
+          super(e)
+          blank_line?
+          success_color(print_description(e))
         end
 
-        # --------------------------------------------------------------------
-        # A simple wrapper for CodeRay and syntax highlighting.
-        # --------------------------------------------------------------------
-
-        def syntax_highlight(text)
-          CodeRay.scan(text, :ruby).term
+        def example_failed
+          super(e)
+          blank_line?
+          failed_color(print_description(e))
         end
 
-        # --------------------------------------------------------------------
-        # Searches for `` inside of "it" and and highlights it with CodeRay.
-        # --------------------------------------------------------------------
+        def example_pending
+          super(e)
+          blank_line?
+          pending_color(print_description(e))
+        end
+
+        # -------------------------------------------------------------
 
         def highlight_graves(text)
           text.gsub(/`([^`]+)`/) { syntax_highlight($1) }
         end
 
-        # --------------------------------------------------------------------
-        # Searches for anything that starts with \. or # and colors it.
-        # --------------------------------------------------------------------
+        def syntax_highlight(text)
+          CodeRay.scan(text, :ruby).term
+        end
+
 
         def highlight_methods(text)
           text.gsub(/(#|\.)([a-z0-9_]+)/) { $1.white + $2.magenta }
         end
 
-        # --------------------------------------------------------------------
-        # Strips apart the full_description to attempt to gather information
-        # on the constant and method and then highlights and outputs
-        # everything.
-        # --------------------------------------------------------------------
+        # -------------------------------------------------------------
 
         def print_description(example)
           constant = example.full_description.chomp(example.description)
