@@ -15,7 +15,7 @@ module Luna
         def example_failed
           super(e)
           blank_line?
-          failed_color(print_description(e))
+          failure_color(print_description(e))
         end
 
         def example_pending

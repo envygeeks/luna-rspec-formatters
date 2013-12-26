@@ -13,7 +13,7 @@ module Luna
         def example_failed(e)
           super(e)
           output.print("\s")
-          output.print(failed_color("\u2718"))
+          output.print(failure_color("\u2718"))
         end
 
         def example_pending(e)
