@@ -1,5 +1,4 @@
 require "rspec/core/formatters/base_text_formatter"
-require "term/ansicolor"
 require "libnotify"
 
 # ----------------------------------------------------------------------------
