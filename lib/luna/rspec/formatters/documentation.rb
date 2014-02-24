@@ -1,4 +1,4 @@
-require_relative "shared/base"
+require_relative "base"
 require "coderay"
 
 module Luna
