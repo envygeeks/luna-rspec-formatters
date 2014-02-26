@@ -21,15 +21,17 @@ module Luna
 
         def dump_summary(duration, total, failures, pending)
         super
-          Libnotify.new do |notify|
-            notify.summary = "RSpec Test Results"
-            notify.urgency = :critical
-            notify.transient = true
-            notify.append = true
-            notify.timeout = 1
-            notify.body = \
-              "Passed: #{total - failures}, Failed: #{failures}, Pending: #{pending}"
-          end.show!
+          unless ENV["LUNA_DISABLE_LIBNOTIFY"]
+            Libnotify.new do |notify|
+              notify.summary = "RSpec Test Results"
+              notify.urgency = :critical
+              notify.transient = true
+              notify.append = true
+              notify.timeout = 1
+              notify.body = \
+                "Passed: #{total - failures}, Failed: #{failures}, Pending: #{pending}"
+            end.show!
+          end
         end
       end
     end
