@@ -1,5 +1,5 @@
+require "libnotify" unless ENV["LUNA_DISABLE_LIBNOTIFY"]
 require "rspec/core/formatters/base_text_formatter"
-require "libnotify"
 
 # ----------------------------------------------------------------------------
 # My RSpec formatters.
