@@ -6,45 +6,25 @@ module Luna
     module Formatters
       class Documentation < Base
 
-        def example_passed
+        def example_passed(e)
           super(e)
-          blank_line?
-          success_color(print_description(e))
+          print_description(e, :success)
         end
 
-        def example_failed
+        def example_failed(e)
           super(e)
-          blank_line?
-          failure_color(print_description(e))
+          print_description(e, :failure)
         end
 
-        def example_pending
+        def example_pending(e)
           super(e)
-          blank_line?
-          pending_color(print_description(e))
+          print_description(e, :pending)
         end
 
         # -------------------------------------------------------------
 
-        def highlight_graves(text)
-          text.gsub(/`([^`]+)`/) { syntax_highlight($1) }
-        end
-
-        def syntax_highlight(text)
-          CodeRay.scan(text, :ruby).term
-        end
-
-
-        def highlight_methods(text)
-          text.gsub(/(#|\.)([a-z0-9_]+)/) { $1.white + $2.magenta }
-        end
-
-        # -------------------------------------------------------------
-
-        def print_description(example)
-          constant = example.full_description.chomp(example.description)
-          output.print "  " + highlight_methods(syntax_highlight(constant))
-          output.print highlight_graves(example.description) + ":"
+        def print_description(example, type)
+          output.print send(:"#{type}_color", "\t" + example.full_description + "\n")
         end
       end
     end
