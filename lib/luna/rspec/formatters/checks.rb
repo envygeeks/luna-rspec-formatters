@@ -11,22 +11,33 @@ module Luna
             :example_passed, :example_pending, :example_failed
         end
 
+        # ---------------------------------------------------------------------
+
+        [:success, :failure, :pending].each do |m|
+          define_method "#{m}_color" do |v|
+            defined?(super) ? super(v) : \
+              ::RSpec::Core::Formatters::ConsoleCodes.wrap(v, m)
+          end
+        end
+
+        # ---------------------------------------------------------------------
+
         def start(*args)
-          super
+          super(*args) if defined?(super)
           output.puts
         end
 
         # ---------------------------------------------------------------------
 
-        def start_dump
-          super
+        def start_dump(*args)
+          super(*args) if defined?(super)
           output.puts
         end
 
         # ---------------------------------------------------------------------
 
         def example_passed(e)
-          super(e)
+          super(e) if defined?(super)
           output.print("\s")
           output.print(success_color("\u2713"))
         end
@@ -34,7 +45,7 @@ module Luna
         # ---------------------------------------------------------------------
 
         def example_failed(e)
-          super(e)
+          super(e) if defined?(super)
           output.print("\s")
           output.print(failure_color("\u2718"))
         end
@@ -42,7 +53,7 @@ module Luna
         # ---------------------------------------------------------------------
 
         def example_pending(e)
-          super(e)
+          super(e) if defined?(super)
           output.print("\s")
           output.print(pending_color("\u203D"))
         end
