@@ -11,8 +11,6 @@ module Luna
             :example_passed, :example_pending, :example_failed
         end
 
-        # ---------------------------------------------------------------------
-
         [:success, :failure, :pending].each do |m|
           define_method "#{m}_color" do |v|
             defined?(super) ? super(v) : \
@@ -20,21 +18,15 @@ module Luna
           end
         end
 
-        # ---------------------------------------------------------------------
-
         def start(*args)
           super(*args) if defined?(super)
           output.puts
         end
 
-        # ---------------------------------------------------------------------
-
         def start_dump(*args)
           super(*args) if defined?(super)
           output.puts
         end
-
-        # ---------------------------------------------------------------------
 
         def example_passed(e)
           super(e) if defined?(super)
@@ -42,15 +34,11 @@ module Luna
           output.print(success_color("\u2713"))
         end
 
-        # ---------------------------------------------------------------------
-
         def example_failed(e)
           super(e) if defined?(super)
           output.print("\s")
           output.print(failure_color("\u2718"))
         end
-
-        # ---------------------------------------------------------------------
 
         def example_pending(e)
           super(e) if defined?(super)
