@@ -1,14 +1,17 @@
 require "rspec/core/formatters/base_text_formatter"
+require "luna/rspec/formatters/profile"
 require "rspec/version"
 
 module Luna
   module RSpec
     module Formatters
       class Checks < ::RSpec::Core::Formatters::BaseTextFormatter
+        include Profile
+
         if ::RSpec::Version::STRING >= "3.0.0"
           # Probably not available in the old version of RSpec.
-          ::RSpec::Core::Formatters.register self, :start, :start_dump, \
-            :example_passed, :example_pending, :example_failed
+          then ::RSpec::Core::Formatters.register self, :start, :start_dump, \
+            :example_passed, :example_pending, :example_failed, :dump_profile
         end
 
         [:success, :failure, :pending].each do |m|
