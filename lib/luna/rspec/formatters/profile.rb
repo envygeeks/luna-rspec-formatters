@@ -1,9 +1,13 @@
-# This is exactly the same as RSpec except I removed a lot of the "\n" cruft.
-
 module Luna
   module RSpec
     module Formatters
       module Profile
+        EXAMPLES = "  %{description} %{seconds} seconds: %{location}"
+          GROUPS = "  %{description} %{total} seconds over %{count} examples: %{location}"
+        EXAMPLES_HEADER = "\nTop %{size} slowest examples (%{seconds}s), %{per_cent}%% of total time:\n"
+          GROUPS_HEADER = "\nTop %{size} slowest example groups:"
+
+
         def helpers
           ::RSpec::Core::Formatters::Helpers
         end
@@ -15,37 +19,50 @@ module Luna
 
         private
         def dump_profile_slowest_examples(profile)
-          size = profile.slowest_examples.size
-          seconds = helpers.format_seconds(profile.slow_duration)
-          per_cent = profile.percentage
+          unless profile.slowest_examples.any? { |e| e.execution_result.run_time >= 0.2 }
+            return
+          end
 
-          @output.puts "\nTop #{size} slowest examples (#{seconds}s), " \
-            "#{per_cent}% of total time):\n"
-
+          examples_header(profile)
           profile.slowest_examples.each do |e|
-            location = format_caller(e.location)
-            seconds  = helpers.format_seconds(e.execution_result.run_time)
-            @output.puts "  #{e.full_description} " \
-              "#{bold(seconds)} #{bold("seconds")} #{location}"
+            @output.puts EXAMPLES % {
+              location: format_caller(e.location),
+              seconds: failure_color(helpers.format_seconds(e.execution_result.run_time)),
+              description: e.full_description
+            }
           end
         end
 
         def dump_profile_slowest_example_groups(profile)
-          return if profile.slowest_groups.empty?
-          @output.puts "\nTop #{profile.slowest_groups.size} " \
-            "slowest example groups:"
+          unless !profile.slowest_groups.empty? && \
+              profile.slowest_groups.any? { |l, h| h[:average] >= 0.4 }
 
+            return
+          end
+
+          groups_header(profile)
           profile.slowest_groups.each do |l, h|
-            total = "#{helpers.format_seconds(h[:total_time])} seconds"
-            average = "#{bold(helpers.format_seconds(h[:average]))} #{bold("seconds")} average"
-            count = helpers.pluralize(h[:count], "example")
-
-            @output.puts "  #{h[:description]} #{average} (#{total} / #{count}) #{l}"
+            @output.puts GROUPS % {
+              description: h[:description],
+              total: failure_color(helpers.format_seconds(h[:total_time])),
+              count: helpers.pluralize(h[:count], "example"),
+              location: l
+            }
           end
         end
 
-        def bold(text)
-          ::RSpec::Core::Formatters::ConsoleCodes.wrap(text, :bold)
+        def groups_header(profile)
+          @output.puts GROUPS_HEADER % {
+            size: profile.slowest_groups.size
+          }
+        end
+
+        def examples_header(profile)
+          @output.puts EXAMPLES_HEADER % {
+            size: profile.slowest_examples.size,
+            seconds: helpers.format_seconds(profile.slow_duration),
+            per_cent: profile.percentage
+          }
         end
 
         def format_caller(caller_info)
