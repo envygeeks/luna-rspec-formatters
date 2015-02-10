@@ -12,5 +12,5 @@ Gem::Specification.new do |spec|
   spec.license = "Apache 2.0"
   spec.require_paths = ["lib"]
 
-  spec.add_dependency("rspec", ">= 2.14", "<= 3.1")
+  spec.add_dependency("rspec", ">= 2.14", "< 4.0")
 end
