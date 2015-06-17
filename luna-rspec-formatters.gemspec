@@ -6,7 +6,7 @@ Gem::Specification.new do |spec|
   spec.files = Dir["lib/**/*.rb"] + %W(License Readme.md Gemfile)
   spec.summary = "RSpec formatters dedicated to Luna."
   spec.version = Luna::Rspec::Formatters::VERSION
-  spec.email = ["envygeeks@gmail.com"]
+  spec.email = ["jordon@envygeeks.io"]
   spec.name = "luna-rspec-formatters"
   spec.authors = ["Jordon Bedwell"]
   spec.license = "Apache 2.0"
