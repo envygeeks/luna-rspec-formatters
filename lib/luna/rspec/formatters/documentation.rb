@@ -1,5 +1,5 @@
 require "rspec/core/formatters/base_text_formatter"
-require "luna/rspec/formatters/formatters/profile"
+require "luna/rspec/formatters/profile"
 require "rspec/version"
 require "coderay"
 
