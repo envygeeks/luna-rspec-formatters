@@ -9,7 +9,7 @@ module Luna
         include Profile
 
         if Gem::Version.new(::RSpec::Version::STRING) >= Gem::Version.new("3.0")
-          then ::RSpec::Core::Formatters.register self, *[
+          ::RSpec::Core::Formatters.register self, *[
             :start,
             :start_dump,
             :example_passed,
@@ -32,34 +32,32 @@ module Luna
 
         def start(*args)
           @lines = 0
-          super(*args) if defined?(super)
           output.puts
         end
 
         def start_dump(*args)
-          super(*args) if defined?(super)
           output.puts
         end
 
         def example_passed(e)
-          super(e) if defined?(super)
           newline_or_addup
-          output.print("\s")
-          output.print(success_color("\u2714"))
+          output.print "".freeze, success_color(
+            "\u2714"
+          )
         end
 
         def example_failed(e)
-          super(e) if defined?(super)
           newline_or_addup
-          output.print("\s")
-          output.print(failure_color("\u2718"))
+          output.print "".freeze, failure_color(
+            "\u2718"
+          )
         end
 
         def example_pending(e)
-          super(e) if defined?(super)
           newline_or_addup
-          output.print("\s")
-          output.print(pending_color("\u203D"))
+          output.print "".freeze, pending_color(
+            "\u203D"
+          )
         end
 
         private

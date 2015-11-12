@@ -14,19 +14,21 @@ module Luna
 
         def dump_profile(profile)
           dump_profile_slowest_examples(profile)
-          dump_profile_slowest_example_groups(profile)
+          dump_profile_slowest_example_groups(
+            profile
+          )
         end
 
         private
         def dump_profile_slowest_examples(profile)
           examples_header(profile)
           profile.slowest_examples.each do |e|
-            sec = helpers.format_seconds(e.execution_result.run_time)
-            sef = sec + " seconds"
+            sec = helpers.format_seconds(e.execution_result.run_time) + \
+              " seconds"
 
             @output.puts EXAMPLES % {
               location: format_caller(e.location),
-              seconds: sec.to_f < 1 ? success_color(sef) : failure_color(sef),
+              seconds: sec.to_f < 1 ? success_color(sec) : failure_color(sec),
               description: e.full_description
             }
           end
@@ -35,12 +37,12 @@ module Luna
         def dump_profile_slowest_example_groups(profile)
           groups_header(profile)
           profile.slowest_groups.each do |l, h|
-            sec = helpers.format_seconds(h[:total_time])
-            sef = sec + " seconds"
+            sec = helpers.format_seconds(h[:total_time]) + \
+              "seconds"
 
             @output.puts color_blue(GROUPS % {
               description: h[:description],
-              total: sec.to_f < 2 ? success_color(sef) : failure_color(sef),
+              total: sec.to_f < 2 ? success_color(sec) : failure_color(sec),
               location: color_blue(strip_relative(l)),
               count: h[:count]
             })
@@ -59,12 +61,6 @@ module Luna
             seconds: helpers.format_seconds(profile.slow_duration),
             per_cent: profile.percentage
           }
-        end
-
-        def color_white(str)
-          ::RSpec::Core::Formatters::ConsoleCodes.wrap(
-            str, :yellow
-          )
         end
 
         def color_blue(str)
