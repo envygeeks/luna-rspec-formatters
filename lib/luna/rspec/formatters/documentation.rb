@@ -9,47 +9,63 @@ module Luna
       class Documentation < ::RSpec::Core::Formatters::BaseTextFormatter
         include Profile
 
-        if ::RSpec::Version::STRING >= "3.0.0"
-          # Probably not available in the old version of RSpec.
-          ::RSpec::Core::Formatters.register self, :start, :start_dump, \
-            :example_passed, :example_pending, :example_failed, :dump_profile
+        if Gem::Version.new(::RSpec::Version::STRING) >= Gem::Version.new("3.0")
+          ::RSpec::Core::Formatters.register self, *[
+            :start,
+            :start_dump,
+            :example_passed,
+            :example_pending,
+            :example_failed,
+            :dump_profile
+          ]
         end
 
         [:success, :failure, :pending].each do |m|
           define_method "#{m}_color" do |v|
-            defined?(super) ? super(v) : \
-              ::RSpec::Core::Formatters::ConsoleCodes.wrap(v, m)
+            defined?(super) ? super(v) : ::RSpec::Core::Formatters::ConsoleCodes.wrap(
+              v, m
+            )
           end
         end
 
         def start(*args)
-          super(*args) if defined?(super)
           output.puts
         end
 
         def start_dump(*args)
-          super(*args) if defined?(super)
           output.puts
         end
 
-        def example_passed(e)
-          output.print("\s")
-          print_description(e, :success)
+        def example_passed(struct)
+          output.print "\s"
+          print_description(
+            get_example(struct), :success
+          )
         end
 
-        def example_failed(e)
-          output.print("\s")
-          print_description(e, :failure)
+        def example_failed(struct)
+          output.print "\s"
+          print_description(
+            get_example(struct), :failure
+          )
         end
 
-        def example_pending(e)
-          output.print("\s")
-          print_description(e, :pending)
+        def example_pending(struct)
+          output.print "\s"
+          print_description(
+            get_example(struct), :pending
+          )
+        end
+
+        def get_example(struct)
+          return struct unless struct.respond_to?(:example)
+          struct.example
         end
 
         def print_description(example, type)
-          output.print send(:"#{type}_color",
-            "\t" + example.full_description + "\n")
+          output.print send(
+            :"#{type}_color", "  " + example.full_description + "\n"
+          )
         end
       end
     end
