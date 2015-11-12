@@ -2,10 +2,10 @@ module Luna
   module RSpec
     module Formatters
       module Profile
-        EXAMPLES = "  %{description} %{seconds} seconds: %{location}"
-          GROUPS = "  %{description} %{total} seconds over %{count} examples: %{location}"
+                 GROUPS = "  %{location} \u2910 %{count} for %{total}"
         EXAMPLES_HEADER = "\nTop %{size} slowest examples (%{seconds}s), %{per_cent}%% of total time:\n"
           GROUPS_HEADER = "\nTop %{size} slowest example groups:"
+               EXAMPLES = "  %{location} \u2910 %{seconds}"
 
 
         def helpers
@@ -19,35 +19,31 @@ module Luna
 
         private
         def dump_profile_slowest_examples(profile)
-          unless profile.slowest_examples.any? { |e| e.execution_result.run_time >= 0.2 }
-            return
-          end
-
           examples_header(profile)
           profile.slowest_examples.each do |e|
+            sec = helpers.format_seconds(e.execution_result.run_time)
+            sef = sec + " seconds"
+
             @output.puts EXAMPLES % {
               location: format_caller(e.location),
-              seconds: failure_color(helpers.format_seconds(e.execution_result.run_time)),
+              seconds: sec.to_f < 1 ? success_color(sef) : failure_color(sef),
               description: e.full_description
             }
           end
         end
 
         def dump_profile_slowest_example_groups(profile)
-          unless !profile.slowest_groups.empty? && \
-              profile.slowest_groups.any? { |l, h| h[:average] >= 0.4 }
-
-            return
-          end
-
           groups_header(profile)
           profile.slowest_groups.each do |l, h|
-            @output.puts GROUPS % {
+            sec = helpers.format_seconds(h[:total_time])
+            sef = sec + " seconds"
+
+            @output.puts color_blue(GROUPS % {
               description: h[:description],
-              total: failure_color(helpers.format_seconds(h[:total_time])),
-              count: helpers.pluralize(h[:count], "example"),
-              location: l
-            }
+              total: sec.to_f < 2 ? success_color(sef) : failure_color(sef),
+              location: color_blue(strip_relative(l)),
+              count: h[:count]
+            })
           end
         end
 
@@ -65,10 +61,28 @@ module Luna
           }
         end
 
-        def format_caller(caller_info)
-          ::RSpec.configuration.backtrace_formatter.backtrace_line(
-            caller_info.to_s.split(':in `block').first
+        def color_white(str)
+          ::RSpec::Core::Formatters::ConsoleCodes.wrap(
+            str, :yellow
           )
+        end
+
+        def color_blue(str)
+          ::RSpec::Core::Formatters::ConsoleCodes.wrap(
+            str, :cyan
+          )
+        end
+
+        def strip_relative(path)
+          path.gsub(
+            /\A\.\//, ""
+          )
+        end
+
+        def format_caller(caller_info)
+          color_blue strip_relative(::RSpec.configuration.backtrace_formatter.backtrace_line(
+            caller_info.to_s.split(':in `block').first
+          ))
         end
       end
     end
