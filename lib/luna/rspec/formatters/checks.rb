@@ -45,7 +45,7 @@ module Luna
           super(e) if defined?(super)
           newline_or_addup
           output.print("\s")
-          output.print(success_color("\u2713"))
+          output.print(success_color("\u2714"))
         end
 
         def example_failed(e)
