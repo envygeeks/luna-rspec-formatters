@@ -21,7 +21,12 @@ module Luna
           end
         end
 
+        def allowed_cols
+          @cols ||= (`tput cols 2>/dev/null || 80`.to_i / 1.6).floor
+        end
+
         def start(*args)
+          @lines = 0
           super(*args) if defined?(super)
           output.puts
         end
@@ -33,20 +38,28 @@ module Luna
 
         def example_passed(e)
           super(e) if defined?(super)
+          newline_or_addup
           output.print("\s")
           output.print(success_color("\u2713"))
         end
 
         def example_failed(e)
           super(e) if defined?(super)
+          newline_or_addup
           output.print("\s")
           output.print(failure_color("\u2718"))
         end
 
         def example_pending(e)
           super(e) if defined?(super)
+          newline_or_addup
           output.print("\s")
           output.print(pending_color("\u203D"))
+        end
+
+        private
+        def newline_or_addup
+          @lines == allowed_cols ? (output.puts; @lines = 1) : @lines+=1
         end
       end
     end
