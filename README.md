@@ -1,4 +1,4 @@
-## RSpec Formatters Luna
+## Luna RSpec Formatters
 
 ```ruby
 gem "luna-rspec-formatters"
