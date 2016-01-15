@@ -1,3 +1,9 @@
+# ----------------------------------------------------------------------------
+# Frozen-string-literal: true
+# Copyright: 2015 - 2016 Jordon Bedwell - MIT License
+# Encoding: utf-8
+# ----------------------------------------------------------------------------
+
 require File.expand_path("../lib/luna/rspec/formatters/version.rb", __FILE__)
 
 Gem::Specification.new do |spec|
@@ -9,8 +15,8 @@ Gem::Specification.new do |spec|
   spec.description = "RSpec formatters that are dedicated to Luna."
   spec.name = "luna-rspec-formatters"
   spec.authors = ["Jordon Bedwell"]
-  spec.license = "Apache 2.0"
   spec.require_paths = ["lib"]
+  spec.license = "MIT"
 
   spec.add_dependency("rspec", ">= 2.14", "< 4.0")
 end
