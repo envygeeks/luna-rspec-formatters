@@ -15,18 +15,28 @@ module Luna
           end
         end
 
+        # --------------------------------------------------------------------
+
         def allowed_cols
-          @cols ||= (`tput cols 2>/dev/null || 80`.to_i / 1.6).floor
+          @cols ||= begin
+            (`tput cols 2>/dev/null || 80`.to_i / 1.6).floor
+          end
         end
+
+        # --------------------------------------------------------------------
 
         def start(*args)
           @lines = 0
           output.puts
         end
 
+        # --------------------------------------------------------------------
+
         def start_dump(*args)
           output.puts
         end
+
+        # --------------------------------------------------------------------
 
         private
         def newline_or_addup

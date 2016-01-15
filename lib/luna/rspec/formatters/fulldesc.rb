@@ -10,7 +10,7 @@ module Luna
         include Profile
 
         if Gem::Version.new(::RSpec::Version::STRING) >= Gem::Version.new("3.0")
-          ::RSpec::Core::Formatters.register self, *[
+          Object::RSpec::Core::Formatters.register self, *[
             :start,
             :start_dump,
             :example_passed,
@@ -20,6 +20,8 @@ module Luna
           ]
         end
 
+        # --------------------------------------------------------------------
+
         [:success, :failure, :pending].each do |m|
           define_method "#{m}_color" do |v|
             defined?(super) ? super(v) : ::RSpec::Core::Formatters::ConsoleCodes.wrap(
@@ -28,13 +30,19 @@ module Luna
           end
         end
 
+        # --------------------------------------------------------------------
+
         def start(*args)
           output.puts
         end
 
+        # --------------------------------------------------------------------
+
         def start_dump(*args)
           output.puts
         end
+
+        # --------------------------------------------------------------------
 
         def example_passed(struct)
           output.print "\s"
@@ -43,12 +51,16 @@ module Luna
           )
         end
 
+        # --------------------------------------------------------------------
+
         def example_failed(struct)
           output.print "\s"
           print_description(
             get_example(struct), :failure
           )
         end
+
+        # --------------------------------------------------------------------
 
         def example_pending(struct)
           output.print "\s"
@@ -57,10 +69,14 @@ module Luna
           )
         end
 
+        # --------------------------------------------------------------------
+
         def get_example(struct)
           return struct unless struct.respond_to?(:example)
           struct.example
         end
+
+        # --------------------------------------------------------------------
 
         def print_description(example, type)
           output.print send(

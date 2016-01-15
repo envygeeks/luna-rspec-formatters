@@ -5,7 +5,7 @@ module Luna
     module Formatters
       class Hearts < Emoji
         if Gem::Version.new(::RSpec::Version::STRING) >= Gem::Version.new("3.0")
-          ::RSpec::Core::Formatters.register self, *[
+          Object::RSpec::Core::Formatters.register self, *[
             :start,
             :start_dump,
             :example_passed,
@@ -15,6 +15,8 @@ module Luna
           ]
         end
 
+        # --------------------------------------------------------------------
+
         def example_passed(e)
           newline_or_addup
           output.print " ".freeze, success_color(
@@ -22,12 +24,16 @@ module Luna
           )
         end
 
+        # --------------------------------------------------------------------
+
         def example_failed(e)
           newline_or_addup
           output.print " ".freeze, failure_color(
             "\u1F494"
           )
         end
+
+        # --------------------------------------------------------------------
 
         def example_pending(e)
           newline_or_addup

@@ -1,12 +1,12 @@
 require File.expand_path("../lib/luna/rspec/formatters/version.rb", __FILE__)
 
 Gem::Specification.new do |spec|
+  spec.email = ["jordon@envygeeks.io"]
+  spec.version = Luna::Rspec::Formatters::VERSION
+  spec.summary = "RSpec formatters dedicated to Luna."
+  spec.files = Dir["lib/**/*.rb"] + %W(LICENSE README.md Gemfile)
   spec.homepage = "https://github.com/envygeeks/luna-rspec-formatters"
   spec.description = "RSpec formatters that are dedicated to Luna."
-  spec.files = Dir["lib/**/*.rb"] + %W(LICENSE README.md Gemfile)
-  spec.summary = "RSpec formatters dedicated to Luna."
-  spec.version = Luna::Rspec::Formatters::VERSION
-  spec.email = ["jordon@envygeeks.io"]
   spec.name = "luna-rspec-formatters"
   spec.authors = ["Jordon Bedwell"]
   spec.license = "Apache 2.0"

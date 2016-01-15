@@ -7,10 +7,13 @@ module Luna
           GROUPS_HEADER = "\nTop %{size} slowest example groups:"
                EXAMPLES = "  %{location} \u2910 %{seconds}"
 
+        # --------------------------------------------------------------------
 
         def helpers
-          ::RSpec::Core::Formatters::Helpers
+          Object::RSpec::Core::Formatters::Helpers
         end
+
+        # --------------------------------------------------------------------
 
         def dump_profile(profile)
           dump_profile_slowest_examples(profile)
@@ -18,6 +21,8 @@ module Luna
             profile
           )
         end
+
+        # --------------------------------------------------------------------
 
         private
         def dump_profile_slowest_examples(profile)
@@ -34,6 +39,8 @@ module Luna
           end
         end
 
+        # --------------------------------------------------------------------
+
         def dump_profile_slowest_example_groups(profile)
           groups_header(profile)
           profile.slowest_groups.each do |l, h|
@@ -49,11 +56,15 @@ module Luna
           end
         end
 
+        # --------------------------------------------------------------------
+
         def groups_header(profile)
           @output.puts GROUPS_HEADER % {
             size: profile.slowest_groups.size
           }
         end
+
+        # --------------------------------------------------------------------
 
         def examples_header(profile)
           @output.puts EXAMPLES_HEADER % {
@@ -63,17 +74,23 @@ module Luna
           }
         end
 
+        # --------------------------------------------------------------------
+
         def color_blue(str)
           ::RSpec::Core::Formatters::ConsoleCodes.wrap(
             str, :cyan
           )
         end
 
+        # --------------------------------------------------------------------
+
         def strip_relative(path)
           path.gsub(
             /\A\.\//, ""
           )
         end
+
+        # --------------------------------------------------------------------
 
         def format_caller(caller_info)
           color_blue strip_relative(::RSpec.configuration.backtrace_formatter.backtrace_line(
