@@ -1,3 +1,9 @@
+# ----------------------------------------------------------------------------
+# Frozen-string-literal: true
+# Copyright: 2015 - 2016 Jordon Bedwell - Apache v2.0 License
+# Encoding: utf-8
+# ----------------------------------------------------------------------------
+
 require "rspec/core/formatters/base_text_formatter"
 require "luna/rspec/formatters/profile"
 require "rspec/version"
