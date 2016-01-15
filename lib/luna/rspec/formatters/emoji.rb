@@ -16,8 +16,7 @@ module Luna
 
         [:success, :failure, :pending].each do |m|
           define_method "#{m}_color" do |v|
-            defined?(super) ? super(v) : \
-              ::RSpec::Core::Formatters::ConsoleCodes.wrap(v, m)
+            defined?(super) ? super(v) : Object::RSpec::Core::Formatters::ConsoleCodes.wrap(v, m)
           end
         end
 
@@ -31,14 +30,14 @@ module Luna
 
         # --------------------------------------------------------------------
 
-        def start(*args)
+        def start(_)
           @lines = 0
           output.puts
         end
 
         # --------------------------------------------------------------------
 
-        def start_dump(*args)
+        def start_dump(_)
           output.puts
         end
 
@@ -46,7 +45,8 @@ module Luna
 
         private
         def newline_or_addup
-          @lines == allowed_cols ? (output.puts; @lines = 1) : @lines+=1
+          return @lines+= 1 unless @lines == allowed_cols
+          output.puts; @lines = 1
         end
       end
     end

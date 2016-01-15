@@ -16,7 +16,7 @@ module Luna
         include Profile
 
         if Gem::Version.new(::RSpec::Version::STRING) >= Gem::Version.new("3.0")
-          Object::RSpec::Core::Formatters.register self, *[
+          then Object::RSpec::Core::Formatters.register self, *[
             :start,
             :start_dump,
             :example_passed,
@@ -38,13 +38,13 @@ module Luna
 
         # --------------------------------------------------------------------
 
-        def start(*args)
+        def start(_)
           output.puts
         end
 
         # --------------------------------------------------------------------
 
-        def start_dump(*args)
+        def start_dump(_)
           output.puts
         end
 
