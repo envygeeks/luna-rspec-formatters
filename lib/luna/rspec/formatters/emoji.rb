@@ -24,7 +24,7 @@ module Luna
 
         def allowed_cols
           @cols ||= begin
-            (`tput cols 2>/dev/null || 80`.to_i / 1.6).floor
+            (IO.console.winsize.last / 2).floor - 1
           end
         end
 
