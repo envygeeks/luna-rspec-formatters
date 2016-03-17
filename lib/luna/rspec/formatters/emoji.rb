@@ -24,10 +24,7 @@ module Luna
 
         def allowed_cols
           @cols ||= begin
-            val = IO.console.winsize.last / 4
-            val = Float::INFINITY unless val >= 24
-            val = val.floor if val >= 24
-            val
+            (val = IO.console.winsize.last / 4) >= 24 ? val.floor : Float::INFINITY
           end
         end
 
