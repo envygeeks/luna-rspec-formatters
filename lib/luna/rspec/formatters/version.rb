@@ -5,7 +5,7 @@
 module Luna
   module Rspec
     module Formatters
-      VERSION = "3.7.2"
+      VERSION = "3.7.3"
     end
   end
 end
