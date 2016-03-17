@@ -1,8 +1,6 @@
-# ----------------------------------------------------------------------------
 # Frozen-string-literal: true
 # Copyright: 2015 - 2016 Jordon Bedwell - MIT License
 # Encoding: utf-8
-# ----------------------------------------------------------------------------
 
 module Luna
   module RSpec
@@ -13,14 +11,12 @@ module Luna
         GROUPS_HEADER = "\nTop %{size} slowest example groups:"
         EXAMPLES = "  %{location} \u2910 %{seconds}"
 
-        # --------------------------------------------------------------------
-
+        # Help.
         def helpers
           Object::RSpec::Core::Formatters::Helpers
         end
 
-        # --------------------------------------------------------------------
-
+        # Profile.
         def dump_profile(profile)
           dump_profile_slowest_examples(profile)
           dump_profile_slowest_example_groups(
@@ -28,9 +24,8 @@ module Luna
           )
         end
 
-        # --------------------------------------------------------------------
-
         private
+        # Slow examples.
         def dump_profile_slowest_examples(profile)
           examples_header(profile)
 
@@ -45,8 +40,8 @@ module Luna
           end
         end
 
-        # --------------------------------------------------------------------
-
+        private
+        # Slowest example groups.
         def dump_profile_slowest_example_groups(profile)
           groups_header(profile)
 
@@ -62,16 +57,17 @@ module Luna
           end
         end
 
-        # --------------------------------------------------------------------
-
+        private
+        # Headers group.
         def groups_header(profile)
           @output.puts GROUPS_HEADER % {
             :size => profile.slowest_groups.size
           }
         end
 
-        # --------------------------------------------------------------------
 
+        private
+        # Header example.
         def examples_header(profile)
           @output.puts EXAMPLES_HEADER % {
             :size => profile.slowest_examples.size,
@@ -80,24 +76,22 @@ module Luna
           }
         end
 
-        # --------------------------------------------------------------------
 
+        private
         def color_blue(str)
           Object::RSpec::Core::Formatters::ConsoleCodes.wrap(
             str, :cyan
           )
         end
 
-        # --------------------------------------------------------------------
-
+        private
         def strip_relative(path)
           path.gsub(
             /\A\.\//, ""
           )
         end
 
-        # --------------------------------------------------------------------
-
+        private
         def format_caller(caller_info)
           color_blue strip_relative(::RSpec.configuration.backtrace_formatter.backtrace_line(
             caller_info.to_s.split(':in `block').first
