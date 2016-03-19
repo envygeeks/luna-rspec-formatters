@@ -19,7 +19,10 @@ module Luna
           ]
         end
 
+        # --------------------------------------------------------------------
         # Passed.
+        # --------------------------------------------------------------------
+
         def example_passed(_)
           newline_or_addup
           output.print " ".freeze, success_color(
@@ -27,7 +30,10 @@ module Luna
           )
         end
 
+        # --------------------------------------------------------------------
         # Failed.
+        # --------------------------------------------------------------------
+
         def example_failed(_)
           newline_or_addup
           output.print " ".freeze, failure_color(
@@ -35,7 +41,10 @@ module Luna
           )
         end
 
+        # --------------------------------------------------------------------
         # Pending.
+        # --------------------------------------------------------------------
+
         def example_pending(_)
           newline_or_addup
           output.print " ".freeze, pending_color(

@@ -1,6 +1,8 @@
+# ----------------------------------------------------------------------------
 # Frozen-string-literal: true
 # Copyright: 2015 - 2016 Jordon Bedwell - MIT License
 # Encoding: utf-8
+# ----------------------------------------------------------------------------
 
 module Luna
   module RSpec
@@ -11,12 +13,18 @@ module Luna
         GROUPS_HEADER = "\nTop %{size} slowest example groups:"
         EXAMPLES = "  %{location} \u2910 %{seconds}"
 
+        # --------------------------------------------------------------------
         # Help.
+        # --------------------------------------------------------------------
+
         def helpers
-          Object::RSpec::Core::Formatters::Helpers
+          ::RSpec::Core::Formatters::Helpers
         end
 
+        # --------------------------------------------------------------------
         # Profile.
+        # --------------------------------------------------------------------
+
         def dump_profile(profile)
           dump_profile_slowest_examples(profile)
           dump_profile_slowest_example_groups(
@@ -24,13 +32,17 @@ module Luna
           )
         end
 
-        private
+        # --------------------------------------------------------------------
         # Slow examples.
+        # --------------------------------------------------------------------
+
+        private
         def dump_profile_slowest_examples(profile)
           examples_header(profile)
 
           profile.slowest_examples.each do |e|
-            sec = helpers.format_seconds(e.execution_result.run_time) + " seconds"
+            sec = helpers.format_seconds(e.execution_result.run_time)
+            sec = sec + " seconds"
 
             @output.puts EXAMPLES % {
               :location => format_caller(e.location),
@@ -40,13 +52,17 @@ module Luna
           end
         end
 
-        private
+        # --------------------------------------------------------------------
         # Slowest example groups.
+        # --------------------------------------------------------------------
+
+        private
         def dump_profile_slowest_example_groups(profile)
           groups_header(profile)
 
           profile.slowest_groups.each do |l, h|
-            sec = helpers.format_seconds(h[:total_time]) + "seconds"
+            sec = helpers.format_seconds(h[:total_time])
+            sec = sec + " seconds"
 
             @output.puts color_blue(GROUPS % {
               :description => h[:description],
@@ -57,17 +73,22 @@ module Luna
           end
         end
 
-        private
+        # --------------------------------------------------------------------
         # Headers group.
+        # --------------------------------------------------------------------
+
+        private
         def groups_header(profile)
           @output.puts GROUPS_HEADER % {
             :size => profile.slowest_groups.size
           }
         end
 
+        # --------------------------------------------------------------------
+        # Header example.
+        # --------------------------------------------------------------------
 
         private
-        # Header example.
         def examples_header(profile)
           @output.puts EXAMPLES_HEADER % {
             :size => profile.slowest_examples.size,
@@ -76,6 +97,7 @@ module Luna
           }
         end
 
+        # --------------------------------------------------------------------
 
         private
         def color_blue(str)
@@ -84,12 +106,16 @@ module Luna
           )
         end
 
+        # --------------------------------------------------------------------
+
         private
         def strip_relative(path)
           path.gsub(
             /\A\.\//, ""
           )
         end
+
+        # --------------------------------------------------------------------
 
         private
         def format_caller(caller_info)
