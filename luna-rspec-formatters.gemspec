@@ -19,4 +19,5 @@ Gem::Specification.new do |spec|
   spec.license = "MIT"
 
   spec.add_dependency("rspec", ">= 2.14", "< 4.0")
+  spec.add_dependency("io-console", "~> 0.4")
 end
