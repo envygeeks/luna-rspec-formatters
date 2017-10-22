@@ -1,8 +1,6 @@
-# ----------------------------------------------------------------------------
 # Frozen-string-literal: true
 # Copyright: 2015 - 2016 Jordon Bedwell - MIT License
 # Encoding: utf-8
-# ----------------------------------------------------------------------------
 
 module Luna
   module RSpec
@@ -13,18 +11,17 @@ module Luna
         GROUPS_HEADER = "\nTop %{size} slowest example groups:"
         EXAMPLES = "  %{location} \u2910 %{seconds}"
 
-        # --------------------------------------------------------------------
+        # --
         # Help.
-        # --------------------------------------------------------------------
+        # --
 
         def helpers
           ::RSpec::Core::Formatters::Helpers
         end
 
-        # --------------------------------------------------------------------
+        # --
         # Profile.
-        # --------------------------------------------------------------------
-
+        # --
         def dump_profile(profile)
           dump_profile_slowest_examples(profile)
           dump_profile_slowest_example_groups(
@@ -32,10 +29,9 @@ module Luna
           )
         end
 
-        # --------------------------------------------------------------------
+        # --
         # Slow examples.
-        # --------------------------------------------------------------------
-
+        # --
         private
         def dump_profile_slowest_examples(profile)
           examples_header(profile)
@@ -52,10 +48,9 @@ module Luna
           end
         end
 
-        # --------------------------------------------------------------------
+        # --
         # Slowest example groups.
-        # --------------------------------------------------------------------
-
+        # --
         private
         def dump_profile_slowest_example_groups(profile)
           groups_header(profile)
@@ -73,10 +68,9 @@ module Luna
           end
         end
 
-        # --------------------------------------------------------------------
+        # --
         # Headers group.
-        # --------------------------------------------------------------------
-
+        # --
         private
         def groups_header(profile)
           @output.puts GROUPS_HEADER % {
@@ -84,10 +78,9 @@ module Luna
           }
         end
 
-        # --------------------------------------------------------------------
+        # --
         # Header example.
-        # --------------------------------------------------------------------
-
+        # --
         private
         def examples_header(profile)
           @output.puts EXAMPLES_HEADER % {
@@ -97,8 +90,7 @@ module Luna
           }
         end
 
-        # --------------------------------------------------------------------
-
+        # --
         private
         def color_blue(str)
           Object::RSpec::Core::Formatters::ConsoleCodes.wrap(
@@ -106,8 +98,7 @@ module Luna
           )
         end
 
-        # --------------------------------------------------------------------
-
+        # --
         private
         def strip_relative(path)
           path.gsub(
@@ -115,8 +106,7 @@ module Luna
           )
         end
 
-        # --------------------------------------------------------------------
-
+        # --
         private
         def format_caller(caller_info)
           color_blue strip_relative(::RSpec.configuration.backtrace_formatter.backtrace_line(
