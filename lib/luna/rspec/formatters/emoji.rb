@@ -15,7 +15,8 @@ module Luna
 
         [:success, :failure, :pending].each do |m|
           define_method "#{m}_color" do |v|
-            defined?(super) ? super(v) : Object::RSpec::Core::Formatters::ConsoleCodes.wrap(v, m)
+            return super(v) if defined?(super)
+            Object::RSpec::Core::Formatters::ConsoleCodes.wrap(v, m)
           end
         end
 
