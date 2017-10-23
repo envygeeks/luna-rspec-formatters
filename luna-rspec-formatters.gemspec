@@ -1,8 +1,6 @@
-# ----------------------------------------------------------------------------
 # Frozen-string-literal: true
 # Copyright: 2015 - 2017 Jordon Bedwell - MIT License
 # Encoding: utf-8
-# ----------------------------------------------------------------------------
 
 require File.expand_path("../lib/luna/rspec/formatters/version.rb", __FILE__)
 
@@ -19,5 +17,4 @@ Gem::Specification.new do |spec|
   spec.license = "MIT"
 
   spec.add_dependency("rspec", ">= 2.14", "< 4.0")
-  spec.add_dependency("io-console", "~> 0.4")
 end
