@@ -6,7 +6,7 @@ require_relative "emoji"
 
 module Luna
   module Formatters
-    class Cats < Emoji
+    class Smiles < Emoji
       Formatters.register self, :start, :start_dump, :example_passed,
         :example_pending, :example_failed, :dump_profile
 
@@ -15,8 +15,9 @@ module Luna
       # --
       def example_passed(_)
         newline_or_addup
-        output.print " ", success_color(
-          "\u1F63B")
+        output.print " ".freeze, success_color(
+          "\u263A"
+        )
       end
 
       # --
@@ -24,8 +25,9 @@ module Luna
       # --
       def example_failed(_)
         newline_or_addup
-        output.print " ", failure_color(
-          "\u1F63E")
+        output.print " ".freeze, failure_color(
+          "\u2639"
+        )
       end
 
       # --
@@ -33,13 +35,14 @@ module Luna
       # --
       def example_pending(_)
         newline_or_addup
-        output.print " ", pending_color(
-          "\u1F63F")
+        output.print " ".freeze, pending_color(
+          "\u2639"
+        )
       end
     end
   end
 end
 
 RSpec.configure do |c|
-  c.formatter = "Luna::Formatters::Cats"
+  c.formatter = "Luna::Formatters::Smilies"
 end

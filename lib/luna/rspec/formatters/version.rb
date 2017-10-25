@@ -3,9 +3,7 @@
 # Encoding: utf-8
 
 module Luna
-  module Rspec
-    module Formatters
-      VERSION = "3.8.1"
-    end
+  module Formatters
+    VERSION = "3.8.0"
   end
 end

@@ -2,11 +2,12 @@
 # Copyright: 2015 - 2017 Jordon Bedwell - MIT License
 # Encoding: utf-8
 
-require File.expand_path("../lib/luna/rspec/formatters/version.rb", __FILE__)
+$LOAD_PATH.unshift(File.expand_path("../lib", __FILE__))
+require "luna/rspec/formatters/version"
 
 Gem::Specification.new do |spec|
   spec.email = ["jordon@envygeeks.io"]
-  spec.version = Luna::Rspec::Formatters::VERSION
+  spec.version = Luna::Formatters::VERSION
   spec.summary = "RSpec formatters dedicated to Luna."
   spec.files = Dir["lib/**/*.rb"] + %W(LICENSE README.md Gemfile)
   spec.homepage = "https://github.com/envygeeks/luna-rspec-formatters"
@@ -16,5 +17,5 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
   spec.license = "MIT"
 
-  spec.add_dependency("rspec", ">= 2.14", "< 4.0")
+  spec.add_dependency("rspec", ">= 3.0", "< 4.0")
 end
