@@ -13,7 +13,7 @@ module Luna
       include Profiling
 
       # --
-      [:success, :failure, :pending].each do |m|
+      %i(success failure pending).each do |m|
         define_method "#{m}_color" do |v|
           return super(v) if defined?(super)
           Formatters::ConsoleCodes.wrap(v, m)
@@ -25,10 +25,7 @@ module Luna
       # The total columns we allow.
       # --
       def allowed_cols
-        @cols ||= begin
-          (val = IO.console.winsize.last / 4) >= 24 ? val.floor :
-            Float::INFINITY
-        end
+        @cols ||= (IO.console.winsize.last / 6)
       end
 
       # --
@@ -54,7 +51,7 @@ module Luna
       private
       def newline_or_addup
         unless @lines == allowed_cols
-          return @lines+= 1
+          return @lines += 1
         end
 
         output.puts

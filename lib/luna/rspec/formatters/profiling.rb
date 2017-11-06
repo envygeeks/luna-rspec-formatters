@@ -5,10 +5,11 @@
 module Luna
   module Formatters
     module Profiling
-      GROUPS = "  %{l} \u2910 %{c} for %{t}"
-      EXAMPLES_HEADER = "\nTop %{s} slowest examples (%{t}s), %{p}%% of total time:\n"
-      GROUPS_HEADER = "\nTop %{s} slowest example groups:"
-      EXAMPLES = "  %{l} \u2910 %{s}"
+      EXP = "  %<loc>s \u2910 %<sec>s"
+      GROUPS = "  %<loc>s \u2910 %<count>g for %<sec>s"
+      GROUPS_HEADER = "\nTop %<count>g slowest example groups:"
+      EXP_HEADER = "\nTop %<count>g slowest examples (%<sec>gs), "\
+        "%<percent>g%% of total time:\n"
 
       # --
       # Help.
@@ -38,11 +39,11 @@ module Luna
           sec = helpers.format_seconds(e.execution_result.run_time)
           sec = sec + " seconds"
 
-          @output.puts EXAMPLES % {
-            :l => format_caller(e.location),
-            :s => sec.to_f < 1 ? success_color(sec) : failure_color(sec),
-            :d => e.full_description
-          }
+          @output.puts format(EXP, {
+            loc: format_caller(e.location),
+            sec: sec.to_f < 1 ? success_color(sec) : failure_color(sec),
+            desc: e.full_description,
+          })
         end
       end
 
@@ -57,12 +58,12 @@ module Luna
           sec = helpers.format_seconds(h[:total_time])
           sec = sec + " seconds"
 
-          @output.puts color_blue(GROUPS % {
-            :d => h[:description],
-            :t => sec.to_f < 2 ? success_color(sec) : failure_color(sec),
-            :l => color_blue(strip_relative(l)),
-            :c => h[:count]
-          })
+          @output.puts color_blue(format(GROUPS, {
+            desc: h[:description],
+            sec: sec.to_f < 2 ? success_color(sec) : failure_color(sec),
+            loc: color_blue(strip_relative(l)),
+            count: h[:count],
+          }))
         end
       end
 
@@ -71,9 +72,9 @@ module Luna
       # --
       private
       def groups_header(profile)
-        @output.puts GROUPS_HEADER % {
-          :s => profile.slowest_groups.size
-        }
+        @output.puts format(GROUPS_HEADER, {
+          count: profile.slowest_groups.size,
+        })
       end
 
       # --
@@ -81,36 +82,31 @@ module Luna
       # --
       private
       def examples_header(profile)
-        @output.puts EXAMPLES_HEADER % {
-          :s => profile.slowest_examples.size,
-          :t => helpers.format_seconds(profile.slow_duration),
-          :p => profile.percentage
-        }
+        @output.puts format(EXP_HEADER, {
+          count: profile.slowest_examples.size,
+          sec: helpers.format_seconds(profile.slow_duration),
+          percent: profile.percentage,
+        })
       end
 
       # --
       private
       def color_blue(str)
-        Object::RSpec::Core::Formatters::ConsoleCodes.wrap(
-          str, :cyan
-        )
+        RSpec::Core::Formatters::ConsoleCodes
+          .wrap(str, :cyan)
       end
 
       # --
       private
       def strip_relative(path)
-        path.gsub(
-          /\A\.\//, ""
-        )
+        path.gsub(%r!\A\./!, "")
       end
 
       # --
       private
       def format_caller(caller_info)
-        color_blue strip_relative(::RSpec.configuration.backtrace_formatter.
-        backtrace_line(
-          caller_info.to_s.split(':in `block').first
-        ))
+        color_blue strip_relative(::RSpec.configuration.backtrace_formatter
+          .backtrace_line(caller_info.to_s.split(":in `block'").first))
       end
     end
   end

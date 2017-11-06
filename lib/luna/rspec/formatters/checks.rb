@@ -15,9 +15,8 @@ module Luna
       # --
       def example_passed(_)
         newline_or_addup
-        output.print " ".freeze, success_color(
-          "\u2714"
-        )
+        output.print " ",
+          success_color("\u2714")
       end
 
       # --
@@ -25,9 +24,8 @@ module Luna
       # --
       def example_failed(_)
         newline_or_addup
-        output.print " ".freeze, failure_color(
-          "\u2718"
-        )
+        output.print " ",
+          failure_color("\u2718")
       end
 
       # --
@@ -35,9 +33,8 @@ module Luna
       # --
       def example_pending(_)
         newline_or_addup
-        output.print " ".freeze, pending_color(
-          "\u203D"
-        )
+        output.print " ",
+          pending_color("\u203D")
       end
     end
   end

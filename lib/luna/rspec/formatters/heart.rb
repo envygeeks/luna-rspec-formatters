@@ -15,9 +15,8 @@ module Luna
       # --
       def example_passed(_)
         newline_or_addup
-        output.print " ".freeze, success_color(
-          "\u2764"
-        )
+        output.print " ",
+          success_color("\u2764")
       end
 
       # --
@@ -25,9 +24,8 @@ module Luna
       # --
       def example_failed(_)
         newline_or_addup
-        output.print " ".freeze, failure_color(
-          "\u1F494"
-        )
+        output.print " ",
+          failure_color("\u1F494")
       end
 
       # --
@@ -35,14 +33,13 @@ module Luna
       # --
       def example_pending(_)
         newline_or_addup
-        output.print " ".freeze, pending_color(
-          "\u2764"
-        )
+        output.print " ",
+          pending_color("\u2764")
       end
     end
   end
 end
 
-RSpec.configure do |config|
-  config.formatter = "Luna::Formatters::Hearts"
+RSpec.configure do |c|
+  c.formatter = "Luna::Formatters::Hearts"
 end

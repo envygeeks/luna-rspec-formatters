@@ -16,11 +16,11 @@ module Luna
         :example_pending, :example_failed, :dump_profile
 
       # --
-      [:success, :failure, :pending].each do |m|
+      %i(success failure pending).each do |m|
         define_method "#{m}_color" do |v|
           return super(v) if defined?(super)
-          RSpec::Core::Formatters::ConsoleCodes.
-            wrap(v, m)
+          RSpec::Core::Formatters::ConsoleCodes
+            .wrap(v, m)
         end
       end
 
@@ -43,9 +43,8 @@ module Luna
       # --
       def example_passed(struct)
         output.print "\s"
-        print_description(
-          get_example(struct), :success
-        )
+        print_description(get_example(struct),
+          :success)
       end
 
       # --
@@ -53,9 +52,8 @@ module Luna
       # --
       def example_failed(struct)
         output.print "\s"
-        print_description(
-          get_example(struct), :failure
-        )
+        print_description(get_example(struct),
+          :failure)
       end
 
       # --
@@ -63,16 +61,18 @@ module Luna
       # --
       def example_pending(struct)
         output.print "\s"
-        print_description(
-          get_example(struct), :pending
-        )
+        print_description(get_example(struct),
+          :pending)
       end
 
       # --
       # Pull.
       # --
       def get_example(struct)
-        return struct unless struct.respond_to?(:example)
+        unless struct.respond_to?(:example)
+          return struct
+        end
+
         struct.example
       end
 
@@ -80,14 +80,13 @@ module Luna
       # Description.
       # --
       def print_description(example, type)
-        output.print send(
-          :"#{type}_color", "  " + example.full_description + "\n"
-        )
+        output.print send(:"#{type}_color", "  " +
+          example.full_description + "\n")
       end
     end
   end
 end
 
 RSpec.configure do |c|
-  config.formatter = "Luna::Formatters::Documentation"
+  c.formatter = "Luna::Formatters::Documentation"
 end
