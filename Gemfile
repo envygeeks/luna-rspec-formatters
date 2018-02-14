@@ -6,5 +6,6 @@ source "https://rubygems.org"
 gemspec
 
 gem "rake"
-gem "rubocop", require: false
-gem "pry", require: false
+group :development do
+  gem "pry", require: false
+end
