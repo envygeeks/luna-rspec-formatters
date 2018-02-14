@@ -1,27 +1,24 @@
-engines:
-  rubocop: { enabled: true  }
-  fixme:   { enabled: false }
-exclude_paths:
-- .rubocop.yml
-- .codeclimate.yml
-- .travis.yml
-- .gitignore
-- .rspec
-
-- Gemfile.lock
-- CHANGELOG.md
-- readme.md
-- README.md
-- Readme.md
-- ReadMe.md
-- COPYING
-- LICENSE
-
-- test/**/*
-- vendor/**/*
-- features/**/*
-- script/**/*
-- spec/**/*
+version: "2"
+plugins:
+  # --
+  # 😞
+  # @see https://github.com/seattlerb/ruby_parser/issues/255
+  # This can break on some Regexps.
+  #   So it's disabled.
+  # --
+  duplication:
+    enabled: false
+  rubocop:
+    # --
+    # 🤨
+    # We must set the default version we want.
+    #   Sometimes CodeClimate lags.
+    # --
+    channel: rubocop-0-52
+    enabled: true
+    config:
+      file: .rubocop.yml
 ratings:
   paths:
-  - lib/**/*.rb
+  - "spec/tests/**.rb"
+  - "lib/**.rb"
