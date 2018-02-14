@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.email = ["jordon@envygeeks.io"]
   spec.version = Luna::Formatters::VERSION
   spec.summary = "RSpec formatters dedicated to Luna."
-  spec.files = Dir["lib/**/*.rb"] + %W(LICENSE README.md Gemfile)
+  spec.files = Dir["lib/**/*.rb"] + %w(LICENSE README.md Gemfile)
   spec.homepage = "https://github.com/envygeeks/luna-rspec-formatters"
   spec.description = "RSpec formatters that are dedicated to Luna."
   spec.name = "luna-rspec-formatters"
