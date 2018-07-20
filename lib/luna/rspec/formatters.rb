@@ -3,8 +3,8 @@
 # Author: Jordon Bedwell
 # Encoding: utf-8
 
-require "rspec/core/formatters"
 require "forwardable/extended"
+require "rspec"
 
 module Luna
   module Formatters
@@ -13,5 +13,9 @@ module Luna
     rb_delegate :"self.register", {
       to: :"RSpec::Core::Formatters", alias_of: :register
     }
+
   end
 end
+
+# Default formatter.  I prefer this.
+require_relative "formatters/checks"
