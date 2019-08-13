@@ -26,7 +26,7 @@ module Luna
       # The total columns we allow.
       # --
       def allowed_cols
-        @cols ||= (IO.console.winsize.last / 6)
+        @cols ||= ((IO.console&.winsize&.last || Infinity) / 6)
       end
 
       # --
