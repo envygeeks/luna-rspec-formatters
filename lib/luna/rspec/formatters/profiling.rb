@@ -6,8 +6,8 @@
 module Luna
   module Formatters
     module Profiling
-      EXP = "  %<loc>s \u2910 %<sec>s"
-      GROUPS = "  %<loc>s \u2910 %<count>g for %<sec>s"
+      EXP = "  %<loc>s took %<sec>s"
+      GROUPS = "  %<loc>s took %<count>g for %<sec>s"
       GROUPS_HEADER = "\nTop %<count>g slowest example groups:"
       EXP_HEADER = "\nTop %<count>g slowest examples (%<sec>gs), "\
         "%<percent>g%% of total time:\n"
