@@ -2,6 +2,7 @@
 # OS Level
 # --
 .DS_Store
+.idea
 
 # --
 # Ruby
