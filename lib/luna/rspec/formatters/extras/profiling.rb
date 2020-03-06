@@ -1,5 +1,5 @@
 # Frozen-string-literal: true
-# Copyright: 2015 - 2018 - MIT License
+# Copyright: 2015 - 2020 - MIT License
 # Author: Jordon Bedwell
 # Encoding: utf-8
 
