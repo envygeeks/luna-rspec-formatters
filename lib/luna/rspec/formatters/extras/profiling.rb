@@ -6,8 +6,8 @@
 module Luna
   module Formatters
     module Profiling
-      EXP = "  %<loc>s took %<sec>s"
-      GROUPS = "  %<loc>s took %<count>g for %<sec>s"
+      EXP = '  %<loc>s took %<sec>s'
+      GROUPS = '  %<loc>s took %<count>g for %<sec>s'
       GROUPS_HEADER = "\nTop %<count>g slowest example groups:"
       EXP_HEADER = "\nTop %<count>g slowest examples (%<sec>gs), "\
         "%<percent>g%% of total time:\n"
@@ -33,12 +33,12 @@ module Luna
             r_time
           )
 
-          sec = sec + " seconds"
+          sec = sec + ' seconds'
           @output.puts(
             format(EXP, {
               loc: format_caller(example.location),
               sec: sec.to_f < 1 ? success_color(sec) : failure_color(sec),
-              dsc: example.full_description,
+              dsc: example.full_description
             })
           )
         end
@@ -53,7 +53,7 @@ module Luna
             h[:total_time]
           )
 
-          sec = sec + " seconds"
+          sec = sec + ' seconds'
           @output.puts color_blue(
             format(GROUPS, {
               desc: h[:description],
@@ -71,7 +71,7 @@ module Luna
       def groups_header(profile)
         @output.puts(
           format(GROUPS_HEADER, {
-            count: profile.slowest_groups.size,
+            count: profile.slowest_groups.size
           })
         )
       end
@@ -99,7 +99,7 @@ module Luna
       private
       def strip_relative(path)
         path.gsub(
-          %r!\A\./!, ""
+          %r!\A\./!, ''
         )
       end
 

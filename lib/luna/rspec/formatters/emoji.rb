@@ -3,10 +3,10 @@
 # Author: Jordon Bedwell
 # Encoding: utf-8
 
-require "io/console"
-require_relative "../formatters"
-require "rspec/core/formatters/base_text_formatter"
-require_relative "extras/profiling"
+require 'io/console'
+require_relative '../formatters'
+require 'rspec/core/formatters/base_text_formatter'
+require_relative 'extras/profiling'
 
 module Luna
   module Formatters
@@ -26,7 +26,8 @@ module Luna
       # we allow is just a example
       # --
       def allowed_cols
-        @cols ||= begin
+        return @allowed_cols if defined?(@allowed_cols)
+        @allowed_cols ||= begin
           infi = Float::INFINITY
           size = IO.console&.winsize&.last
           size = size || infi

@@ -3,7 +3,7 @@
 # Author: Jordon Bedwell
 # Encoding: utf-8
 
-require "rspec"
+require 'rspec'
 
 module Luna
   module Formatters
@@ -19,4 +19,4 @@ module Luna
 end
 
 # Default formatter.  I prefer this.
-require_relative "formatters/checks"
+require_relative 'formatters/checks'

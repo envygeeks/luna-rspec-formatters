@@ -3,9 +3,9 @@
 # Author: Jordon Bedwell
 # Encoding: utf-8
 
-require_relative "profiling"
-require "rspec/core/formatters/base_text_formatter"
-require "rspec/version"
+require_relative 'profiling'
+require 'rspec/core/formatters/base_text_formatter'
+require 'rspec/version'
 
 module Luna
   module Formatters
@@ -57,7 +57,7 @@ module Luna
       def print_description(example, type)
         desc = example.full_description
         output.print send(
-          :"#{type}_color", "  " + desc + "\n"
+          :"#{type}_color", '  ' + desc + "\n"
         )
       end
     end
@@ -67,5 +67,5 @@ module Luna
 end
 
 RSpec.configure do |c|
-  c.formatter = "Luna::Formatters::Documentation"
+  c.formatter = 'Luna::Formatters::Documentation'
 end

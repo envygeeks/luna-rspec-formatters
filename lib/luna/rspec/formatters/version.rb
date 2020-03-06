@@ -5,6 +5,6 @@
 
 module Luna
   module Formatters
-    VERSION = "3.2.0"
+    VERSION = '3.2.0'
   end
 end

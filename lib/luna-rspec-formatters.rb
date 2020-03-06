@@ -3,4 +3,4 @@
 # Author: Jordon Bedwell
 # Encoding: utf-8
 
-require_relative "luna/rspec/formatters"
+require_relative 'luna/rspec/formatters'

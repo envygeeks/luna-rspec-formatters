@@ -5,8 +5,8 @@
 # Encoding: utf-8
 
 task default: [:spec]
-task(:spec) { exec "script/test" }
-task(:test) { exec "script/test" }
-Dir.glob("script/rake.d/*.rake").each do |v|
+task(:spec) { exec 'script/test' }
+task(:test) { exec 'script/test' }
+Dir.glob('script/rake.d/*.rake').each do |v|
   load v
 end
