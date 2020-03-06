@@ -1,11 +1,12 @@
 # Frozen-string-literal: true
-# Copyright: 2015 - 2017 Jordon Bedwell - MIT License
+# Copyright: 2015 - 2020 Jordon Bedwell - MIT License
+# Author: Jordon Bedwell
 # Encoding: utf-8
 
-source "https://rubygems.org"
+source 'https://rubygems.org'
 gemspec
 
-gem "rake"
+gem 'rake'
 group :development do
-  gem "pry", require: false
+  gem 'pry', require: false
 end

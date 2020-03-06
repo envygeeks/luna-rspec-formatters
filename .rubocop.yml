@@ -1,6 +1,17 @@
 Naming/FileName: { Enabled: false }
+Style/HashTransformKeys: { Enabled: true }
 Style/RescueStandardError: { Enabled: false }
+Lint/OrderedMagicComments: { Enabled: false }
+Style/HashTransformValues: { Enabled: true }
+Style/HashEachMethods: { Enabled: true }
 Style/Documentation:
+  Enabled: false
+# --
+# Sometimes it makes sense
+# and then *sometimes* it does
+# not make sense
+# --
+Layout/EmptyLineAfterGuardClause:
   Enabled: false
 # --
 # 🙃
@@ -58,13 +69,6 @@ Lint/UselessAccessModifier:
   Enabled: false
 # --
 # 😞
-# There are just too many missed cases.
-#   So this is disabled.
-# --
-Style/BracesAroundHashParameters:
-  Enabled: false
-# --
-# 😞
 # Because I like to use Emoji's in comments.
 #   This will trip up if you use Emoji's that are
 #   within the private space.
@@ -83,15 +87,8 @@ Layout/MultilineMethodCallBraceLayout:
 # I like my stuff to be indented 2 spaces.
 #   Not aligned at brackets.
 # --
-Layout/AlignParameters:
+Layout/ParameterAlignment:
   EnforcedStyle: with_fixed_indentation
-# --
-# 🎨
-# Makes reorganizing hashes easier.
-#   They are non-positional.
-# --
-Style/TrailingCommaInLiteral:
-  EnforcedStyleForMultiline: comma
 # --
 # 🎨
 # I like my stuff to be indented 2 spaces.
@@ -147,14 +144,14 @@ Style/MultilineTernaryOperator:
 # I like my arrays to be indented 2 spaces.
 #   Not aligned at the bracket.
 # --
-Layout/IndentArray:
+Layout/FirstArrayElementIndentation:
   EnforcedStyle: consistent
 # --
 # 🎨
 # I like my hashes to be indented 2 spaces.
 #   Not aligned at the bracket.
 # --
-Layout/IndentHash:
+Layout/FirstHashElementIndentation:
   EnforcedStyle: consistent
 # --
 # 🎨
@@ -218,11 +215,6 @@ Style/PercentLiteralDelimiters:
 # --
 Style/RegexpLiteral:
   EnforcedStyle: percent_r
-# Prefer "" over ''
-# 🎨
-# --
-Style/StringLiterals:
-  EnforcedStyle: double_quotes
 # --
 AllCops:
   TargetRubyVersion: 2.3
