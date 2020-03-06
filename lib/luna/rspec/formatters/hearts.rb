@@ -8,36 +8,29 @@ require_relative "emoji"
 module Luna
   module Formatters
     class Hearts < Emoji
-      Formatters.register self, :start, :start_dump, :example_passed,
-        :example_pending, :example_failed, :dump_profile
-
-      # --
-      # Passed.
-      # --
       def example_passed(_)
         newline_or_addup
-        output.print " ",
-          success_color("\u2764")
+        output.print " ", success_color(
+          "\u2764"
+        )
       end
 
-      # --
-      # Failed.
-      # --
       def example_failed(_)
         newline_or_addup
-        output.print " ",
-          failure_color("\u1F494")
+        output.print " ", failure_color(
+          "\u1F494"
+        )
       end
 
-      # --
-      # Pending.
-      # --
       def example_pending(_)
         newline_or_addup
-        output.print " ",
-          pending_color("\u2764")
+        output.print " ", pending_color(
+          "\u2764"
+        )
       end
     end
+
+    register Hearts
   end
 end
 

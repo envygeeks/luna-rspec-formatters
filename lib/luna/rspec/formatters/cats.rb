@@ -8,36 +8,29 @@ require_relative "emoji"
 module Luna
   module Formatters
     class Cats < Emoji
-      Formatters.register self, :start, :start_dump, :example_passed,
-        :example_pending, :example_failed, :dump_profile
-
-      # --
-      # Passed.
-      # --
       def example_passed(_)
         newline_or_addup
-        output.print " ",
-          success_color("\u1F63B")
+        output.print " ", success_color(
+          "\u1F63B"
+        )
       end
 
-      # --
-      # Failed.
-      # --
       def example_failed(_)
         newline_or_addup
-        output.print " ",
-          failure_color("\u1F63E")
+        output.print " ", failure_color(
+          "\u1F63E"
+        )
       end
 
-      # --
-      # Pending.
-      # --
       def example_pending(_)
         newline_or_addup
-        output.print " ",
-          pending_color("\u1F63F")
+        output.print " ", pending_color(
+          "\u1F63F"
+        )
       end
     end
+
+    register Cats
   end
 end
 

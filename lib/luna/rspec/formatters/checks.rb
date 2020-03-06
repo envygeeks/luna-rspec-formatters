@@ -8,12 +8,6 @@ require_relative "emoji"
 module Luna
   module Formatters
     class Checks < Emoji
-      Formatters.register self, :start, :start_dump, :example_passed,
-        :example_pending, :example_failed, :dump_profile
-
-      # --
-      # Passed.
-      # --
       def example_passed(_)
         newline_or_addup
         output.print " ", success_color(
@@ -21,9 +15,6 @@ module Luna
         )
       end
 
-      # --
-      # Failed.
-      # --
       def example_failed(_)
         newline_or_addup
         output.print " ", failure_color(
@@ -31,9 +22,6 @@ module Luna
         )
       end
 
-      # --
-      # Pending.
-      # --
       def example_pending(_)
         newline_or_addup
         output.print " ", pending_color(
@@ -41,6 +29,8 @@ module Luna
         )
       end
     end
+
+    register Checks
   end
 end
 

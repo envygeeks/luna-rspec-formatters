@@ -3,17 +3,18 @@
 # Author: Jordon Bedwell
 # Encoding: utf-8
 
-require "forwardable/extended"
 require "rspec"
 
 module Luna
   module Formatters
     ConsoleCodes = RSpec::Core::Formatters::ConsoleCodes
-    extend Forwardable::Extended
-    rb_delegate :"self.register", {
-      to: :"RSpec::Core::Formatters", alias_of: :register
-    }
-
+    def self.register(name)
+      RSpec::Core::Formatters.register(
+        name, :start, :start_dump, :example_passed,
+        :example_pending, :example_failed,
+        :dump_profile
+      )
+    end
   end
 end
 

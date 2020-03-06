@@ -6,14 +6,13 @@
 require "io/console"
 require_relative "../formatters"
 require "rspec/core/formatters/base_text_formatter"
-require_relative "profiling"
+require_relative "extras/profiling"
 
 module Luna
   module Formatters
     class Emoji < RSpec::Core::Formatters::BaseTextFormatter
       include Profiling
 
-      # --
       %i(success failure pending).each do |m|
         define_method "#{m}_color" do |v|
           return super(v) if defined?(super)
@@ -22,32 +21,33 @@ module Luna
       end
 
       # --
-      # Note: If the terminal is too small we just let it go.
-      # The total columns we allow.
+      # Note: If the terminal is too small
+      # we just let it go. The total columns
+      # we allow is just a example
       # --
       def allowed_cols
-        @cols ||= ((IO.console&.winsize&.last || Float::INFINITY) / 6)
+        @cols ||= begin
+          infi = Float::INFINITY
+          size = IO.console&.winsize&.last
+          size = size || infi
+          size / 6
+        end
       end
 
-      # --
-      # Start.
-      # --
       def start(_)
         @lines = 0
         output.puts
       end
 
-      # --
-      # End.
-      # --
       def start_dump(_)
         output.puts
       end
 
       # --
-      # Determine if we should start a new line or keep
-      # on pushing out. Note: if the terminal is too small
-      # we just let it go.
+      # Determine if we should start a new
+      # line or keep on pushing out. Note: if
+      # the terminal is too small we just let
+      # it go until it's done.
       # --
       private
       def newline_or_addup
@@ -59,5 +59,7 @@ module Luna
         @lines = 1
       end
     end
+
+    register Emoji
   end
 end
